@@ -33,7 +33,7 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    webstorm("2024.2.4", useInstaller = false)
+    webstorm("2024.3.4", useInstaller = false)
     bundledPlugin("JavaScript")
     instrumentationTools()
     pluginVerifier()
@@ -58,12 +58,12 @@ intellijPlatform {
     teamCityOutputFormat = false
     subsystemsToCheck = VerifyPluginTask.Subsystems.ALL
     ides {
-      ide(IntelliJPlatformType.WebStorm, "2024.2")
+      ide(IntelliJPlatformType.WebStorm, "2024.3.4")
       recommended()
       select {
         types = listOf(IntelliJPlatformType.WebStorm)
         channels = listOf(ProductRelease.Channel.RELEASE)
-        sinceBuild = "242"
+        sinceBuild = "251"
         untilBuild = "251.*"
       }
     }
@@ -80,8 +80,11 @@ intellijPlatform {
     }
 
     patchPluginXml {
+      sinceBuild.set("251")
+      untilBuild.set("251.*")
       changeNotes.set(
         """<br>
+      v2025.1 - compatibility with 2025.1 patch version<br>
       v2025.1 - compatibility with 2025.1 version<br>
       v2024.31 - remove deprecated functions<br>
       v2024.3 - compatibility with 2024.3 version<br>
