@@ -9,9 +9,9 @@ plugins {
   // Java support
   id("java")
   // Kotlin support
-  id("org.jetbrains.kotlin.jvm") version "2.0.21"
+  id("org.jetbrains.kotlin.jvm") version "2.4.0"
   // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
-  id("org.jetbrains.intellij.platform") version "2.1.0"
+  id("org.jetbrains.intellij.platform") version "2.18.1"
 }
 
 tasks.withType<KotlinCompile> {
@@ -33,9 +33,10 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    webstorm("2024.3.4", useInstaller = false)
+    webstorm("2026.2.1") {
+      useInstaller = false
+    }
     bundledPlugin("JavaScript")
-    instrumentationTools()
     pluginVerifier()
     testFramework(TestFrameworkType.Platform)
   }
@@ -49,7 +50,7 @@ intellijPlatform {
   pluginConfiguration {
     group = "org.lso"
     name.set("LogIt")
-    version.set("2025.3")
+    version.set("2026.2")
   }
   pluginVerification {
     failureLevel = VerifyPluginTask.FailureLevel.ALL
@@ -58,13 +59,13 @@ intellijPlatform {
     teamCityOutputFormat = false
     subsystemsToCheck = VerifyPluginTask.Subsystems.ALL
     ides {
-      ide(IntelliJPlatformType.WebStorm, "2024.3.4")
+      create(IntelliJPlatformType.WebStorm, "2026.2.1")
       recommended()
       select {
         types = listOf(IntelliJPlatformType.WebStorm)
         channels = listOf(ProductRelease.Channel.RELEASE)
-        sinceBuild = "253"
-        untilBuild = "253.*"
+        sinceBuild = "262"
+        untilBuild = "262.*"
       }
     }
   }
@@ -80,8 +81,8 @@ intellijPlatform {
     }
 
     patchPluginXml {
-      sinceBuild.set("253")
-      untilBuild.set("253.*")
+      sinceBuild.set("262")
+      untilBuild.set("262.*")
       changeNotes.set(
         """<br>
       v2025.3 - compatibility with 2025.3 patch version<br>
@@ -112,5 +113,3 @@ intellijPlatform {
     }
   }
 }
-
-
