@@ -106,7 +106,7 @@ class LogItAdd : AnAction("Insert log") {
     // parse the file as a simple JavaScript file
     val psiFile =
       PsiFileFactory.getInstance(editor.project).createFileFromText(
-        "dummy.js", JavascriptLanguage.INSTANCE, editor.document.text
+        "dummy.js", JavascriptLanguage, editor.document.text
       )
 
     val valueToLog: String
@@ -118,13 +118,13 @@ class LogItAdd : AnAction("Insert log") {
 
       offset = editor.selectionModel.selectionStart
 
-      element = psiFile.findElementAt(offset)
+      element = psiFile.viewProvider.findElementAt(offset)
 
       valueToLog = value ?: "<CR>"
     } else {
       offset = editor.caretModel.currentCaret.offset
 
-      val elementAtCursor = psiFile.findElementAt(offset)
+      val elementAtCursor = psiFile.viewProvider.findElementAt(offset)
 
       if (elementAtCursor?.text?.replace(" ", "")?.endsWith("\n\n") == true) return ""
 
@@ -137,7 +137,7 @@ class LogItAdd : AnAction("Insert log") {
       return "\n"
     }
 
-    val block = findBlockForElement(element ?: psiFile.findElementAt(offset) ?: return null)
+    val block = findBlockForElement(element ?: psiFile.viewProvider.findElementAt(offset) ?: return null)
 
     when {
       block is JSIfStatement -> {
@@ -257,4 +257,3 @@ class LogItAdd : AnAction("Insert log") {
     }
   }
 }
-

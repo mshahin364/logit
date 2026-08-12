@@ -12,7 +12,7 @@ class LogItActionsGroup : DefaultActionGroup() {
             val js = Language.findLanguageByID("JavaScript")
             val psiFile = e.getData(PlatformDataKeys.PSI_FILE)
             val offset = editor.caretModel.currentCaret.offset
-            val psiElement = psiFile?.findElementAt(offset)
+            val psiElement = psiFile?.viewProvider?.findElementAt(offset)
             val isJs = psiElement?.language == js || psiElement?.language?.baseLanguage == js
             isJs
         } ?: false
